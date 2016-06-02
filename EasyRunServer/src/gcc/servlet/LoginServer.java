@@ -37,8 +37,8 @@ public class LoginServer extends HttpServlet{
         try {
         	UserBean user = userDao.findUser(account,password);
 			if(user!=null){
-				System.out.println("user account"+user.getAccount());
-	        	System.out.println("user password"+user.getPassword());
+				//System.out.println("user account"+user.getAccount());
+	        	//System.out.println("user password"+user.getPassword());
 				response.getOutputStream().write("succeed".getBytes());
 			}
 			else{
