@@ -51,20 +51,21 @@ public class UserDao
 		}
 	}
 
-	public UserBean AddBaseUser(UserBean user) throws SQLException
+	public boolean AddBaseUser(UserBean user)
 	{
-		final String sql = "insert into Users (UserID,Account,Password,Gender,UserName,HeadImgUrl) values(?,?,?,?)";
+		final String sql = "insert into Users (UserID,Account,Password,IdentityPic) values(?,?,?,?)";
 		try (PreparedStatement ps1 = conn.prepareStatement(sql))
 		{
 			String UserID = UUID.randomUUID().toString();//长度为36位的字符串
 			ps1.setString(1, UserID);
 			ps1.setString(2, user.getAccount());
 			ps1.setString(3, user.getPassword());
-			ps1.setInt(4, user.getGender().ordinal());
-			ps1.setString(5, user.getUserName());
-			ps1.setString(6, user.getHeadImgUrl());
+			ps1.setString(4, user.getIdentityPic());
 			ps1.executeUpdate();
-			return user;
+			return true;
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 	

@@ -15,4 +15,15 @@
     <servlet-name>LoginServer</servlet-name>
     <url-pattern>/LoginServer</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>RegisterBase</servlet-name>
+    <servlet-class>
+			gcc.servlet.RegisterBase
+		</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterBase</servlet-name>
+    <url-pattern>/RegisterBase</url-pattern>
+  </servlet-mapping>
 </web-app>
