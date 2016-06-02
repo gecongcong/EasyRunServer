@@ -34,14 +34,17 @@ public class LoginServer extends HttpServlet{
         System.out.println("password: " + password );
         Connection conn = DaoBase.getConnection(true);
         UserDao userDao = new UserDao(conn);
-        response.getOutputStream().write("succeed".getBytes());
         try {
         	UserBean user = userDao.findUser(account,password);
-        	System.out.println("user account"+user.getAccount());
-        	System.out.println("user password"+user.getPassword());
-			if(user!=null)
+			if(user!=null){
+				System.out.println("user account"+user.getAccount());
+	        	System.out.println("user password"+user.getPassword());
 				response.getOutputStream().write("succeed".getBytes());
-			else response.getOutputStream().write("failed".getBytes());
+			}
+			else{
+				//System.out.println("failed");
+				response.getOutputStream().write("failed".getBytes());
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.getOutputStream().write("failed".getBytes());
