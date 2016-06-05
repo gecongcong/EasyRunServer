@@ -1,0 +1,206 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en" class="app">
+<head>  
+<title>完善信息</title>
+<meta charset="UTF-8">
+<meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" type="text/css" href="bg/css/default.css">
+<link href="css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="bootstrap-3.3.5-dist/css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="PersonCenter/css/animate.css" type="text/css" />
+<link rel="stylesheet" href="PersonCenter/css/font-awesome.min.css" type="text/css" />
+<link rel="stylesheet" href="PersonCenter/css/simple-line-icons.css" type="text/css" />
+<link rel="stylesheet" href="PersonCenter/css/font.css" type="text/css" />
+<link rel="stylesheet" href="PersonCenter/css/app.css" type="text/css" />
+<script src="PersonCenter/js/jquery.min.js"></script>
+<script type="text/javascript" src="js/city_choose.js"></script>
+</head>
+<body onload="init();">
+<%
+	//SNSUserInfo user = (SNSUserInfo)session.getAttribute("snsUserInfo"); 
+%>
+<section class="vbox">
+    <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
+      <div class="navbar-header aside bgn-info nav-xs">
+        <a class="navbar-brand text-lt" style="color:#fff">
+          <span class="hidden-nav-xs m-l-sm">完善信息</span>
+        </a>
+      </div>      
+      <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-sm bg-white btn-icon rounded"><i class="fa fa-search"></i></button>
+            </span>
+            <input type="text" class="form-control input-sm no-border rounded" placeholder="Search...">
+          </div>
+        </div>
+      </form>
+      
+    </header>
+    <section>
+      <section class="hbox stretch">
+        <!-- .aside -->
+          <section class="vbox">
+            <section class="scrollable padder">
+              <div class="m-b-md">
+                <h3 class="m-b-none"></h3>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <form data-validate="parsley" enctype="multipart/form-data" action="MarathonRegister" method="POST">
+                    <section class="panel panel-default">
+                      <header class="panel-heading">
+                        <span class="h4">完善信息</span>
+                      </header>
+                      <div class="panel-body">
+	                        <div class="form-group">
+	                          <label>姓名</label>
+	                          <input type="text"  class="form-control" data-required="true" name="user.userName"/>                        
+	                        </div>  
+	                        <div class="form-group">
+	                          <label>邮箱</label>
+	                        <input type="text"  class="form-control" data-type="email" data-required="true" name="user.email"/>                        
+	                        </div>
+	                        <div class="form-group">
+	                          <label>联系方式</label>
+	                          <input type="text"  class="form-control" data-type="phone" placeholder="请输入手机号" data-required="true" name="user.celphone"/>
+	                        </div>
+	                        <div class="form-group">
+	                          <label>身份证号</label>
+	                          <input type="text" class="form-control" data-required="true" name="user.identityCard"/>
+	                        </div>
+	                        <div class="form-group">
+	                          <label>单寸照</label>
+	                          <input id="file-0" class="file" type="file" name="user.identityPic">
+	                        </div>
+	                        <div class="form-group">
+	                          <label>血型</label>
+		                      <select id="bloodType" name="user.bloodType" class="form-control"> 
+								<option value="A">A</option>
+								<option value="B">B</option> 
+								<option value="O">O</option>
+								<option value="AB">AB</option>
+							  </select>
+	                        </div>
+	                        <div class="form-group">
+	                          <label>身高</label>
+	                          <input type="text" class="form-control" data-required="true" name="user.height"/>
+	                        </div>
+	                        <div class="form-group">
+	                          <label>体重</label>
+	                          <input type="text" class="form-control" data-required="true" name="user.weight"/>
+	                        </div>
+	                        <div class="form-group">
+	                          <label>所在地区</label>
+		                      <select id="country" name="country" onchange="toProvince();" class="form-control m-b" data-required="true"> 
+								<option value="-1">--国家---</option> 
+							  </select> 
+							  <select id="province" name="province" onchange="toCity();" class="form-control m-b" data-required="true"> 
+							  	<option value="-1">--省份---</option> 
+							  </select> 
+							  <select id="city" name="city" class="form-control m-b" data-required="true"> 
+							  	<option value="-1">--市/区---</option> 
+							  </select>
+		                   </div>
+		                   <div class="form-group">
+	                          <label>紧急联系人姓名</label>
+	                          <input type="text" class="form-control" data-required="true" name="user.urgencyContact"/>
+	                        </div>
+	                        <div class="form-group">
+	                          <label>紧急联系人电话</label>
+	                          <input type="text" class="form-control" data-required="true" name="user.urgencyPhone"/>
+	                        </div>
+		                  <%--  <div style="display:none"><!-- 微信号，主键 -->
+								<input value="<%=user.getOpenId()%>" type="hidden" value="1" id="txt_width" name="user.wechatID"/>
+							</div> --%>
+							<div class="form-group">
+	                        <div class="checkbox i-checks">
+	                          <label>
+	                            <input type="checkbox" name="check" checked data-required="true"><i></i>我同意遵守 <a href="#" class="text-info">《易跑平台服务条款》</a>
+	                          </label>
+	                        </div>
+                        	</div>
+		              </div>
+                        </section>
+                        	<button type="submit" class="btn btn-succeed btn-s-xs" style="color:#545ca6">提交</button>
+                        </form>
+                        </div>
+                        </div>	
+                        </section>
+                    </section>
+                </section>
+                <footer class="panel-footer text-right bg-light lter"></footer>
+			</section>
+		</section>
+
+<script>
+	    $("#file-0").fileinput({
+	        'allowedFileExtensions' : ['jpg','jpeg', 'png','gif'],
+	        maxFilesNum: 10,
+	    });
+	    $("#file-1").fileinput({
+	        uploadUrl: '#', // you must set a valid URL here else you will get an error
+	        allowedFileExtensions : ['jpeg', 'jpg', 'png','gif'],
+	        overwriteInitial: false,
+	        maxFileSize: 1000,
+	        maxFilesNum: 10,
+	        //allowedFileTypes: ['image', 'video', 'flash'],
+	        slugCallback: function(filename) {
+	            return filename.replace('(', '_').replace(']', '_');
+	        }
+		});
+	    /*
+	    $(".file").on('fileselect', function(event, n, l) {
+	        alert('File Selected. Name: ' + l + ', Num: ' + n);
+	    });
+	    */
+		$("#file-3").fileinput({
+			showUpload: false,
+			showCaption: false,
+			browseClass: "btn btn-primary btn-lg",
+			fileType: "any",
+	        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+		});
+		$("#file-4").fileinput({
+			uploadExtraData: {kvId: '10'}
+		});
+	    $(".btn-warning").on('click', function() {
+	        if ($('#file-4').attr('disabled')) {
+	            $('#file-4').fileinput('enable');
+	        } else {
+	            $('#file-4').fileinput('disable');
+	        }
+	    });    
+	    $(".btn-info").on('click', function() {
+	        $('#file-4').fileinput('refresh', {previewClass:'bg-info'});
+	    });
+	    $(document).ready(function() {
+	        $("#test-upload").fileinput({
+	            'showPreview' : false,
+	            'allowedFileExtensions' : ['jpg', 'png','gif'],
+	            'elErrorContainer': '#errorBlock'
+	        });
+	    });
+		</script>
+<!-- <script src="http://libs.useso.com/js/jquery/2.1.1/jquery.min.js"></script>  -->
+<script src="js/fileinput.js" type="text/javascript"></script>	
+<script src="js/fileinput_locale_zh.js" type="text/javascript"></script>	
+<script src="bootstrap-3.3.5-dist/js/bootstrap.min.js"	type="text/javascript"></script> 	
+<!-- <script src="PersonCenter/js/jquery.min.js"></script> -->
+<!-- parsley -->
+<script src="PersonCenter/js/parsley/parsley.min.js"></script>
+<script src="PersonCenter/js/parsley/parsley.extend.js"></script>
+<script src="PersonCenter/js/app.plugin.js"></script>
+<!-- <script type="text/javascript" src="PersonCenter/js/jPlayer/jquery.jplayer.min.js"></script>
+<script type="text/javascript" src="PersonCenter/js/jPlayer/add-on/jplayer.playlist.min.js"></script>
+<script type="text/javascript" src="PersonCenter/js/jPlayer/demo.js"></script> -->
+</body>
+</html>
